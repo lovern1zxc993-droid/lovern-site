@@ -27,13 +27,20 @@ align-items:center;
 position:fixed;
 top:0;
 height:100%;
-width:260px;
+width:320px;
 object-fit:cover;
 filter:brightness(.9);
 }
 
-.left{left:0;mask-image:linear-gradient(to right,black 70%,transparent)}
-.right{right:0;mask-image:linear-gradient(to left,black 70%,transparent)}
+.left{
+left:-40px;
+mask-image:linear-gradient(to right,black 85%,transparent);
+}
+
+.right{
+right:-40px;
+mask-image:linear-gradient(to left,black 85%,transparent);
+}
 
 /* центр */
 .center{
