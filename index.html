@@ -46,26 +46,24 @@ pointer-events:none;
 z-index:1;
 }
 
-/* левая — возвращаем как было */
 .left{
 left:-40px;
 background-image:url("left.png");
 background-position:left center;
 }
 
-/* правая — показываем меч */
 .right{
 right:-40px;
 background-image:url("right.png");
 background-position:right center;
 }
 
-/* мягкий fade поверх */
+/* обычный fade */
 .fade-left,
 .fade-right{
 position:fixed;
 top:0;
-width:200px;
+width:220px;
 height:100vh;
 pointer-events:none;
 z-index:2;
@@ -81,12 +79,34 @@ right:0;
 background:linear-gradient(to left,#120022,transparent);
 }
 
+/* 🔥 blur зона как ты просил */
+.blur-left,
+.blur-right{
+position:fixed;
+top:0;
+width:180px;
+height:100vh;
+pointer-events:none;
+z-index:3;
+backdrop-filter:blur(40px);
+}
+
+.blur-left{
+left:240px;
+background:linear-gradient(to right,rgba(18,0,34,.7),transparent);
+}
+
+.blur-right{
+right:240px;
+background:linear-gradient(to left,rgba(18,0,34,.7),transparent);
+}
+
 /* заголовок */
 h1{
 font-size:64px;
 color:#b983ff;
 margin-bottom:30px;
-z-index:3;
+z-index:4;
 }
 
 /* меню */
@@ -95,7 +115,7 @@ display:flex;
 flex-direction:column;
 gap:18px;
 width:320px;
-z-index:3;
+z-index:4;
 }
 
 .btn{
@@ -117,7 +137,9 @@ background:#273163;
 
 .side,
 .fade-left,
-.fade-right{
+.fade-right,
+.blur-left,
+.blur-right{
 display:none;
 }
 
@@ -141,6 +163,9 @@ width:90%;
 
 <div class="fade-left"></div>
 <div class="fade-right"></div>
+
+<div class="blur-left"></div>
+<div class="blur-right"></div>
 
 <div class="center">
 
