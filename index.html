@@ -20,7 +20,7 @@ color:white;
 overflow-x:hidden;
 }
 
-/* фон центр */
+/* центр */
 .center{
 min-height:100vh;
 display:flex;
@@ -34,29 +34,51 @@ linear-gradient(180deg,#120022,#240046);
 background-size:200px 200px,240px 240px,100%;
 }
 
-/* картинки по бокам */
+/* картинки */
 .side{
 position:fixed;
 top:0;
-width:420px;
+width:520px;
 height:100vh;
-background-size:cover;
-background-position:center;
+background-size:contain;
+background-repeat:no-repeat;
 pointer-events:none;
+z-index:1;
 }
 
-/* ЛЕВО — теперь не режет */
+/* левая — возвращаем как было */
 .left{
-left:-120px;
+left:-40px;
 background-image:url("left.png");
-mask-image:linear-gradient(to right,black 92%,transparent);
+background-position:left center;
 }
 
-/* ПРАВО — меч видно */
+/* правая — показываем меч */
 .right{
-right:-120px;
+right:-40px;
 background-image:url("right.png");
-mask-image:linear-gradient(to left,black 92%,transparent);
+background-position:right center;
+}
+
+/* мягкий fade поверх */
+.fade-left,
+.fade-right{
+position:fixed;
+top:0;
+width:200px;
+height:100vh;
+pointer-events:none;
+z-index:2;
+}
+
+.fade-left{
+left:0;
+background:linear-gradient(to right,#120022,transparent);
+}
+
+.fade-right{
+right:0;
+background:linear-gradient(to left,#120022,transparent);
 }
 
 /* заголовок */
@@ -64,14 +86,16 @@ h1{
 font-size:64px;
 color:#b983ff;
 margin-bottom:30px;
+z-index:3;
 }
 
-/* кнопки */
+/* меню */
 .menu{
 display:flex;
 flex-direction:column;
 gap:18px;
 width:320px;
+z-index:3;
 }
 
 .btn{
@@ -91,7 +115,9 @@ background:#273163;
 /* мобилка */
 @media(max-width:900px){
 
-.side{
+.side,
+.fade-left,
+.fade-right{
 display:none;
 }
 
@@ -113,16 +139,17 @@ width:90%;
 <div class="side left"></div>
 <div class="side right"></div>
 
+<div class="fade-left"></div>
+<div class="fade-right"></div>
+
 <div class="center">
 
 <h1>Lovern</h1>
 
 <div class="menu">
-
 <div class="btn">О нас</div>
 <div class="btn">Донат</div>
 <div class="btn">Мы в медиа</div>
-
 </div>
 
 </div>
