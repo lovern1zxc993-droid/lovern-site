@@ -3,190 +3,157 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Lovern</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:sans-serif}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial}
 
 body{
-min-height:100vh;
-color:white;
 background:
-radial-gradient(circle at 20% 20%,rgba(120,0,255,.25),transparent 40%),
-radial-gradient(circle at 80% 80%,rgba(255,0,180,.2),transparent 40%),
-#080016;
+radial-gradient(circle at 20% 30%,rgba(255,255,255,.05) 1px,transparent 1px),
+radial-gradient(circle at 80% 60%,rgba(255,255,255,.05) 1px,transparent 1px),
+linear-gradient(135deg,#060012,#14002a,#2a004d);
+background-size:300px 300px,400px 400px,cover;
+color:white;
+min-height:100vh;
 overflow-x:hidden;
-}
-
-/* блёстки */
-body:before{
-content:"";
-position:fixed;
-inset:0;
-pointer-events:none;
-background-image:
-radial-gradient(2px 2px at 20% 30%,rgba(255,255,255,.4),transparent),
-radial-gradient(1px 1px at 60% 70%,rgba(255,255,255,.3),transparent),
-radial-gradient(2px 2px at 80% 40%,rgba(255,255,255,.3),transparent);
-opacity:.25;
-}
-
-/* layout */
-.wrap{
 display:flex;
 justify-content:center;
 align-items:center;
-gap:40px;
-padding:40px;
 }
 
-/* картинки */
+/* боковые картинки */
 .side{
-width:280px;
-position:relative;
+position:fixed;
+top:0;
+height:100%;
+width:260px;
+object-fit:cover;
+filter:brightness(.9);
 }
 
-.side img{
-width:100%;
-border-radius:28px;
-display:block;
-}
-
-/* мягкая аура чтобы не было полос */
-.side:after{
-content:"";
-position:absolute;
-inset:-40px;
-background:radial-gradient(circle,rgba(120,0,255,.4),transparent 60%);
-filter:blur(40px);
-z-index:-1;
-}
+.left{left:0;mask-image:linear-gradient(to right,black 70%,transparent)}
+.right{right:0;mask-image:linear-gradient(to left,black 70%,transparent)}
 
 /* центр */
 .center{
-max-width:380px;
-width:100%;
+max-width:420px;
+width:90%;
 text-align:center;
 }
 
 h1{
 font-size:48px;
-margin-bottom:24px;
-background:linear-gradient(45deg,#7a5cff,#ff4fd8);
+margin-bottom:30px;
+background:linear-gradient(45deg,#6cf,#a6f,#ff66cc);
 -webkit-background-clip:text;
-color:transparent;
+-webkit-text-fill-color:transparent;
 }
 
+/* кнопки */
 .btn{
+display:block;
 width:100%;
 padding:16px;
 margin:12px 0;
-border-radius:16px;
-background:#141432;
-border:2px solid transparent;
+border-radius:14px;
+background:#141b38;
+border:none;
 color:white;
+font-size:18px;
 cursor:pointer;
 transition:.25s;
 }
 
 .btn:hover{
-border-color:#ff4fd8;
+box-shadow:0 0 0 2px #ff66cc,0 0 18px #ff66cc;
 }
 
-/* экраны */
-.screen{display:none}
-.screen.active{display:block}
-
-/* донаты сетка */
+/* донаты */
 .grid{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:14px;
-margin-top:20px;
+gap:12px;
 }
 
-/* телефон */
-@media(max-width:900px){
-
-.wrap{
-flex-direction:column;
-}
-
+@media(max-width:700px){
 .side{display:none}
+.grid{grid-template-columns:1fr}
+h1{font-size:40px}
+}
 
-.grid{
-grid-template-columns:1fr;
-}
-}
+/* скрытые экраны */
+.screen{display:none}
+.active{display:block}
 </style>
 </head>
-
 <body>
 
-<div class="wrap">
-
-<div class="side">
-<img src="left.png">
-</div>
+<img src="left.png" class="side left">
+<img src="right.png" class="side right">
 
 <div class="center">
 
-<!-- ГЛАВНЫЙ -->
+<!-- ГЛАВНАЯ -->
 <div id="main" class="screen active">
 <h1>Lovern</h1>
-
 <button class="btn" onclick="show('about')">О нас</button>
 <button class="btn" onclick="show('donate')">Донат</button>
 <button class="btn" onclick="show('media')">Мы в медиа</button>
 </div>
 
-<!-- ДОНАТ -->
-<div id="donate" class="screen">
-<h2>Привилегии</h2>
-
-<div class="grid">
-<div class="btn">lovern</div>
-<div class="btn">lovern</div>
-<div class="btn">lovern</div>
-<div class="btn">lovern</div>
-</div>
-
+<!-- О НАС -->
+<div id="about" class="screen">
+<h1>О нас</h1>
+<p style="opacity:.7;margin-bottom:20px">
+Сервер Lovern. Добро пожаловать ❤️
+</p>
 <button class="btn" onclick="show('main')">Назад</button>
 </div>
 
 <!-- МЕДИА -->
 <div id="media" class="screen">
-<h2>Мы в медиа</h2>
+<h1>Мы в медиа</h1>
 
-<button class="btn" onclick="window.open('https://www.youtube.com/@lovern1-993')">YouTube</button>
-<button class="btn" onclick="window.open('https://discord.gg/7hYHeUcMJD')">Discord</button>
+<a href="https://www.youtube.com/@lovern1-993" target="_blank">
+<button class="btn">YouTube</button>
+</a>
+
+<a href="https://discord.gg/7hYHeUcMJD" target="_blank">
+<button class="btn">Discord</button>
+</a>
 
 <button class="btn" onclick="show('main')">Назад</button>
 </div>
 
-<!-- О НАС -->
-<div id="about" class="screen">
-<h2>О нас</h2>
-<p style="opacity:.7;margin:20px 0">Сайт проекта Lovern</p>
+<!-- ДОНАТ -->
+<div id="donate" class="screen">
+<h1>Привилегии</h1>
+
+<div class="grid">
+<button class="btn">lovern</button>
+<button class="btn">lovern</button>
+<button class="btn">lovern</button>
+<button class="btn">lovern</button>
+<button class="btn">lovern</button>
+<button class="btn">lovern</button>
+<button class="btn">lovern</button>
+<button class="btn">lovern</button>
+<button class="btn">lovern</button>
+<button class="btn">lovern</button>
+</div>
+
 <button class="btn" onclick="show('main')">Назад</button>
-</div>
-
-</div>
-
-<div class="side">
-<img src="right.png">
 </div>
 
 </div>
 
 <script>
 function show(id){
-document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"))
-document.getElementById(id).classList.add("active")
+document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'))
+document.getElementById(id).classList.add('active')
 }
 </script>
 
 </body>
 </html>
-
