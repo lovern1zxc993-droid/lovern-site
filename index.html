@@ -32,6 +32,8 @@ radial-gradient(circle at 30% 40%,rgba(255,255,255,.05) 1px,transparent 1px),
 radial-gradient(circle at 70% 60%,rgba(255,255,255,.05) 1px,transparent 1px),
 linear-gradient(180deg,#120022,#240046);
 background-size:200px 200px,240px 240px,100%;
+z-index:2;
+position:relative;
 }
 
 /* картинки */
@@ -46,24 +48,49 @@ pointer-events:none;
 z-index:1;
 }
 
-/* левый — мягкое исчезновение */
 .left{
-left:-40px;
+left:0;
 background-image:url("left.png");
 background-position:left center;
-
-mask-image:linear-gradient(to right,black 70%,transparent);
--webkit-mask-image:linear-gradient(to right,black 70%,transparent);
 }
 
-/* правый — мягкое исчезновение */
 .right{
-right:-40px;
+right:0;
 background-image:url("right.png");
 background-position:right center;
+}
 
-mask-image:linear-gradient(to left,black 70%,transparent);
--webkit-mask-image:linear-gradient(to left,black 70%,transparent);
+/* МЯГКОЕ РАЗМЫТИЕ КРАЁВ (то что ты хотел) */
+
+.blurEdge{
+position:fixed;
+top:0;
+width:220px;
+height:100vh;
+pointer-events:none;
+z-index:2;
+backdrop-filter:blur(18px);
+-webkit-backdrop-filter:blur(18px);
+}
+
+/* левый градиент размытия */
+.blurLeft{
+left:380px;
+background:linear-gradient(to right,
+rgba(18,0,34,0) 0%,
+rgba(18,0,34,.25) 40%,
+rgba(18,0,34,.55) 70%,
+rgba(18,0,34,.9) 100%);
+}
+
+/* правый */
+.blurRight{
+right:380px;
+background:linear-gradient(to left,
+rgba(18,0,34,0) 0%,
+rgba(18,0,34,.25) 40%,
+rgba(18,0,34,.55) 70%,
+rgba(18,0,34,.9) 100%);
 }
 
 /* заголовок */
@@ -104,6 +131,10 @@ background:#273163;
 display:none;
 }
 
+.blurEdge{
+display:none;
+}
+
 h1{
 font-size:42px;
 }
@@ -121,6 +152,10 @@ width:90%;
 
 <div class="side left"></div>
 <div class="side right"></div>
+
+<!-- размытие -->
+<div class="blurEdge blurLeft"></div>
+<div class="blurEdge blurRight"></div>
 
 <div class="center">
 
