@@ -2,144 +2,129 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Lovern</title>
 
 <style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:sans-serif}
 
 body{
-margin:0;
-font-family:Arial,Helvetica,sans-serif;
-background:linear-gradient(135deg,#060018,#120030,#1a0045);
+min-height:100vh;
 color:white;
+background:
+radial-gradient(circle at 20% 20%,rgba(120,0,255,.25),transparent 40%),
+radial-gradient(circle at 80% 80%,rgba(255,0,180,.2),transparent 40%),
+#080016;
 overflow-x:hidden;
 }
 
 /* блёстки */
-body::after{
+body:before{
 content:"";
 position:fixed;
 inset:0;
 pointer-events:none;
 background-image:
-radial-gradient(2px 2px at 20% 30%,rgba(255,255,255,.15),transparent),
-radial-gradient(2px 2px at 70% 60%,rgba(255,255,255,.12),transparent),
-radial-gradient(2px 2px at 40% 80%,rgba(255,255,255,.1),transparent);
-animation:sparkle 6s infinite alternate;
+radial-gradient(2px 2px at 20% 30%,rgba(255,255,255,.4),transparent),
+radial-gradient(1px 1px at 60% 70%,rgba(255,255,255,.3),transparent),
+radial-gradient(2px 2px at 80% 40%,rgba(255,255,255,.3),transparent);
+opacity:.25;
 }
 
-@keyframes sparkle{
-from{opacity:.4}
-to{opacity:.9}
-}
-
-.container{
-display:flex;
-min-height:100vh;
-align-items:center;
-justify-content:space-between;
-}
-
-.side{
-width:28%;
-position:relative;
+/* layout */
+.wrap{
 display:flex;
 justify-content:center;
+align-items:center;
+gap:40px;
+padding:40px;
+}
+
+/* картинки */
+.side{
+width:280px;
+position:relative;
 }
 
 .side img{
 width:100%;
-max-width:420px;
+border-radius:28px;
+display:block;
 }
 
-/* мягкая аура */
-.side::after{
+/* мягкая аура чтобы не было полос */
+.side:after{
 content:"";
 position:absolute;
-top:0;
-bottom:0;
-width:140px;
-right:-40px;
-background:linear-gradient(90deg,rgba(10,0,30,0) 0%,rgba(10,0,30,.9) 100%);
-filter:blur(20px);
+inset:-40px;
+background:radial-gradient(circle,rgba(120,0,255,.4),transparent 60%);
+filter:blur(40px);
+z-index:-1;
 }
 
 /* центр */
 .center{
-width:44%;
+max-width:380px;
+width:100%;
 text-align:center;
-padding:40px 20px;
 }
 
-.logo{
-font-size:64px;
-font-weight:700;
-background:linear-gradient(45deg,#5fb6ff,#a855ff,#ff4dff);
+h1{
+font-size:48px;
+margin-bottom:24px;
+background:linear-gradient(45deg,#7a5cff,#ff4fd8);
 -webkit-background-clip:text;
--webkit-text-fill-color:transparent;
+color:transparent;
 }
 
 .btn{
-display:block;
-margin:16px auto;
+width:100%;
 padding:16px;
-max-width:320px;
+margin:12px 0;
 border-radius:16px;
-background:#15152f;
+background:#141432;
+border:2px solid transparent;
+color:white;
 cursor:pointer;
 transition:.25s;
 }
 
 .btn:hover{
-box-shadow:0 0 0 2px #ff4dff;
+border-color:#ff4fd8;
 }
 
-/* донаты */
-.priv-grid{
+/* экраны */
+.screen{display:none}
+.screen.active{display:block}
+
+/* донаты сетка */
+.grid{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:16px;
-margin-top:30px;
-}
-
-.card{
-background:#15152f;
-padding:18px;
-border-radius:14px;
+gap:14px;
+margin-top:20px;
 }
 
 /* телефон */
-@media(max-width:768px){
+@media(max-width:900px){
 
-.container{
+.wrap{
 flex-direction:column;
 }
 
-.side{
-display:none;
-}
+.side{display:none}
 
-.center{
-width:100%;
+.grid{
+grid-template-columns:1fr;
 }
-
-.priv-grid{
-display:flex;
-flex-direction:column;
 }
-
-.logo{
-font-size:42px;
-}
-
-}
-
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="wrap">
 
 <div class="side">
 <img src="left.png">
@@ -147,22 +132,45 @@ font-size:42px;
 
 <div class="center">
 
-<div class="logo">Lovern</div>
+<!-- ГЛАВНЫЙ -->
+<div id="main" class="screen active">
+<h1>Lovern</h1>
 
-<div class="btn">О нас</div>
-<div class="btn">Донат</div>
-
-<a href="https://www.youtube.com/@lovern1-993" target="_blank" class="btn">YouTube</a>
-<a href="https://discord.gg/7hYHeUcMJD" target="_blank" class="btn">Discord</a>
-
-<div class="priv-grid">
-<div class="card">lovern</div>
-<div class="card">lovern</div>
-<div class="card">lovern</div>
-<div class="card">lovern</div>
+<button class="btn" onclick="show('about')">О нас</button>
+<button class="btn" onclick="show('donate')">Донат</button>
+<button class="btn" onclick="show('media')">Мы в медиа</button>
 </div>
 
-<div class="btn">Назад</div>
+<!-- ДОНАТ -->
+<div id="donate" class="screen">
+<h2>Привилегии</h2>
+
+<div class="grid">
+<div class="btn">lovern</div>
+<div class="btn">lovern</div>
+<div class="btn">lovern</div>
+<div class="btn">lovern</div>
+</div>
+
+<button class="btn" onclick="show('main')">Назад</button>
+</div>
+
+<!-- МЕДИА -->
+<div id="media" class="screen">
+<h2>Мы в медиа</h2>
+
+<button class="btn" onclick="window.open('https://www.youtube.com/@lovern1-993')">YouTube</button>
+<button class="btn" onclick="window.open('https://discord.gg/7hYHeUcMJD')">Discord</button>
+
+<button class="btn" onclick="show('main')">Назад</button>
+</div>
+
+<!-- О НАС -->
+<div id="about" class="screen">
+<h2>О нас</h2>
+<p style="opacity:.7;margin:20px 0">Сайт проекта Lovern</p>
+<button class="btn" onclick="show('main')">Назад</button>
+</div>
 
 </div>
 
@@ -172,5 +180,13 @@ font-size:42px;
 
 </div>
 
+<script>
+function show(id){
+document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"))
+document.getElementById(id).classList.add("active")
+}
+</script>
+
 </body>
 </html>
+
